@@ -1,3 +1,5 @@
+package de.bioonto.elvira
+
 /*
  * Copyright (C) 2007, University of Manchester
  *
