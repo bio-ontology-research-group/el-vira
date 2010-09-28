@@ -20,15 +20,14 @@ usage: 'Self'
   h longOpt:'help', 'this information'
   i longOpt:'input', 'input file', args:1, required:true
   o longOpt:'output', 'output file',args:1, required:true
-  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, Default: 0)',args:1, required:false
-  p longOpt:'pellet-compliant', 'ignore nominals and datatype properties to provide support for Pellet (and other) EL reasoners', required:false
+  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, Default: 0)',args:1
+  p longOpt:'pellet-compliant', 'ignore nominals and datatype properties to provide support for Pellet (and other) EL reasoners'
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
 def opt = cli.parse(args)
-
-if( args.length < 2) {
-    cli.usage()
-    return
+if( !opt ) {
+  //  cli.usage()
+  return
 }
 if( opt.h ) {
     cli.usage()
