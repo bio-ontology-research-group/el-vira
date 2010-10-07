@@ -24,6 +24,7 @@ usage: 'Self'
   p longOpt:'pellet-compliant', 'ignore nominals and datatype properties to provide support for Pellet (and other) EL reasoners'
   v longOpt:'verbose', 'verbose output: prints progress of OWL reasoning'
   d longOpt:'disjoints', 'include inferred disjointness axioms (may take a long time)'
+  a longOpt:'noanno', 'exclude annotation properties (sometimes required for Pellet compliance)'
 }
 def opt = cli.parse(args)
 if( !opt ) {
@@ -85,15 +86,16 @@ viol.each {
     ignoreSet.add(it.getAxiom())
   }
 }
-def s = ont.getAxioms()
-s.each {
-  if (
-    (! ignoreSet.contains(it))
-  ) {
-    manager.addAxiom(infOnt,it)
+if (!opt.a) {
+  def s = ont.getAxioms()
+  s.each {
+    if (
+      (! ignoreSet.contains(it))
+    ) {
+      manager.addAxiom(infOnt,it)
+    }
   }
 }
-
 /* Use reasoner to add inferred axioms */
 ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
 OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
