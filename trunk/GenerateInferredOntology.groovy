@@ -13,6 +13,8 @@ import org.mindswap.pellet.expressivity.*
 import org.mindswap.pellet.*
 import org.semanticweb.HermiT.Reasoner
 import uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory
+import de.tudresden.inf.lat.jcel.owlapi.main.*
+import de.tudresden.inf.lat.cel.owlapi.*
 
 def cli = new CliBuilder()
 cli.with {
@@ -20,7 +22,7 @@ usage: 'Self'
   h longOpt:'help', 'this information'
   i longOpt:'input', 'input file', args:1, required:true
   o longOpt:'output', 'output file',args:1, required:true
-  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, Default: 0)',args:1
+  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for JCel, 3 for CEL, Default: 0)',args:1
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
 def opt = cli.parse(args)
@@ -65,11 +67,8 @@ if (opt.r == "0" || !opt.r) {
 } else if (opt.r == "1") {
   println "Using Hermit reasoner"
   reasonerFactory = new Reasoner.ReasonerFactory()
-} else if (opt.r == "2") {
-  println "Using FaCT++ reasoner"
-  reasonerFactory = new FaCTPlusPlusReasonerFactory()
 }
-
+//JcelReasoner reasoner = new JcelReasoner(ont)
 
 // /* Copy every asserted axiom which is in EL to the new ontology. This is
 //    necessary to retain annotation axioms, which are not inferred by the
@@ -97,10 +96,16 @@ ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
 OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
 OWLReasoner reasoner = null
 
-if (opt.v) { // verbose
-  reasoner = reasonerFactory.createNonBufferingReasoner(ont, config)
+if (! ((opt.r == "2") || (opt.r == "3"))) {
+  if (opt.v) { // verbose
+    reasoner = reasonerFactory.createNonBufferingReasoner(ont, config)
+  } else {
+    reasoner = reasonerFactory.createNonBufferingReasoner(ont)
+  }
+} else if (opt.r == "2") {
+  reasoner = new JcelReasoner(ont)
 } else {
-  reasoner = reasonerFactory.createNonBufferingReasoner(ont)
+  reasoner = new CelReasoner(ont)
 }
 
 List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>()
@@ -114,6 +119,8 @@ gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator())
 gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
-InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
+InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
+iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
+println iog.getAxiomGenerators()
 iog.fillOntology(manager, infOnt)
 manager.saveOntology(infOnt, IRI.create(outfile.toURI()))
