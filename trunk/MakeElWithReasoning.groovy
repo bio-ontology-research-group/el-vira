@@ -99,9 +99,9 @@ OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
 OWLReasoner reasoner = null
 
 if (opt.v) { // verbose
-  reasoner = reasonerFactory.createReasoner(ont, config)
+  reasoner = reasonerFactory.createNonBufferingReasoner(ont, config)
 } else {
-  reasoner = reasonerFactory.createReasoner(ont)
+  reasoner = reasonerFactory.createNonBufferingReasoner(ont)
 }
 
 List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>()
