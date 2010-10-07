@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.reasoner.*
 import de.tudresden.inf.lat.jcel.owlapi.main.*
 import org.semanticweb.owlapi.profiles.*
 import org.semanticweb.owlapi.util.*
-import com.clarkparsia.pellet.owlapiv3.*
+import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory
 import org.mindswap.pellet.KnowledgeBase
 import org.mindswap.pellet.expressivity.*
 import org.mindswap.pellet.*
@@ -116,6 +116,7 @@ gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
+iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 iog.fillOntology(manager, infOnt)
 
 File tempFile = File.createTempFile("elvira",".owl")
