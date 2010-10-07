@@ -22,7 +22,8 @@ usage: 'Self'
   o longOpt:'output', 'output file',args:1, required:true
   r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, Default: 0)',args:1
   p longOpt:'pellet-compliant', 'ignore nominals and datatype properties to provide support for Pellet (and other) EL reasoners'
-  v longOpt:'verbose', 'prints progress of OWL reasoning'
+  v longOpt:'verbose', 'verbose output: prints progress of OWL reasoning'
+  d longOpt:'disjoints', 'include inferred disjointness axioms (may take a long time)'
 }
 def opt = cli.parse(args)
 if( !opt ) {
@@ -116,7 +117,9 @@ gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
-iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
+if (opt.d) {
+  iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
+}
 iog.fillOntology(manager, infOnt)
 
 File tempFile = File.createTempFile("elvira",".owl")
