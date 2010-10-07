@@ -120,11 +120,9 @@ gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator())
 gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
-InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
-println opt.d
+InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
 if (opt.d) {
   iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 }
-println iog.getAxiomGenerators()
 iog.fillOntology(manager, infOnt)
 manager.saveOntology(infOnt, IRI.create(outfile.toURI()))
