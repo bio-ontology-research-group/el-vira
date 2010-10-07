@@ -62,7 +62,7 @@ OWLOntology infOnt = manager.createOntology()
 
 if (opt.r == "0" || !opt.r) {
   println "Using Pellet reasoner"
-  reasonerFactory = new PelletReasonerFactory()
+  reasonerFactory = PelletReasonerFactory().theInstance()
 } else if (opt.r == "1") {
   println "Using Hermit reasoner"
   reasonerFactory = new Reasoner.ReasonerFactory()
