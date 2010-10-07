@@ -116,7 +116,6 @@ gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
-iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 iog.fillOntology(manager, infOnt)
 
 File tempFile = File.createTempFile("elvira",".owl")
