@@ -121,6 +121,7 @@ gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
+println opt.d
 if (opt.d) {
   iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 }
