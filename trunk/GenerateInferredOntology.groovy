@@ -105,7 +105,7 @@ if (! ((opt.r == "2") || (opt.r == "3"))) {
   }
 } else if (opt.r == "2") {
   reasoner = new JcelReasoner(ont)
-} else {
+} else if (opt.r == "3") {
   reasoner = new CelReasoner(ont)
 }
 
