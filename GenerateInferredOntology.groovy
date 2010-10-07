@@ -23,6 +23,7 @@ usage: 'Self'
   i longOpt:'input', 'input file', args:1, required:true
   o longOpt:'output', 'output file',args:1, required:true
   r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for JCel, 3 for CEL, Default: 0)',args:1
+  d longOpt:'disjoints', 'include inferred disjointness axioms (may take a long time)'
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
 def opt = cli.parse(args)
@@ -120,7 +121,9 @@ gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
-iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
+if (opt.d) {
+  iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
+}
 println iog.getAxiomGenerators()
 iog.fillOntology(manager, infOnt)
 manager.saveOntology(infOnt, IRI.create(outfile.toURI()))
