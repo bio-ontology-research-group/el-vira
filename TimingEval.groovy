@@ -77,5 +77,12 @@ def stop = now.getTimeInMillis()
 def elapsed = stop-start
 println "Elapsed time: "+elapsed+"ms"
 
-
+def ll = []
+def thing = fac.getOWLThing()
+def nothing = fac.getOWLNothing()
 start = System.currentTimeMillis()
+reasoner.getSubClasses(thing,true).each { ll << it }
+reasoner.getSuperClasses(nothing,true).each { ll << it }
+end = System.currentTimeMillis()
+elapsed = stop-start
+println "Query time: $elapsed ms"
