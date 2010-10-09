@@ -14,13 +14,15 @@ import org.mindswap.pellet.expressivity.*
 import org.mindswap.pellet.*
 import org.semanticweb.HermiT.Reasoner
 import uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory
+import de.tudresden.inf.lat.jcel.owlapi.main.*
+import de.tudresden.inf.lat.cel.owlapi.*
 
 def cli = new CliBuilder()
 cli.with {
 usage: 'Self'
   h longOpt:'help', 'this information'
   i longOpt:'input', 'input file', args:1, required:true
-  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, Default: 0)',args:1
+  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, 3 for JCEL, 4 for CEL, Default: 0)',args:1
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
 def opt = cli.parse(args)
@@ -64,11 +66,20 @@ if (opt.r == "0" || !opt.r) {
 ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
 OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
 OWLReasoner reasoner = null
-if (opt.v) { // verbose
-  reasoner = reasonerFactory.createNonBufferingReasoner(ont, config)
-} else {
-  reasoner = reasonerFactory.createNonBufferingReasoner(ont)
+if (! ((opt.r == "3") || (opt.r == "4"))) {
+  if (opt.v) { // verbose
+    reasoner = reasonerFactory.createNonBufferingReasoner(ont, config)
+  } else {
+    reasoner = reasonerFactory.createNonBufferingReasoner(ont)
+  }
+} else if (opt.r == "3") {
+  println "Using JCEL reasoner"
+  reasoner = new JcelReasoner(ont)
+} else if (opt.r == "4") {
+  println "Using CEL reasoner"
+  reasoner = new CelReasoner(ont)
 }
+
 Calendar now = Calendar.getInstance()
 def start = now.getTimeInMillis()
 println reasoner.getUnsatisfiableClasses()
@@ -83,6 +94,6 @@ def nothing = fac.getOWLNothing()
 start = System.currentTimeMillis()
 reasoner.getSubClasses(thing,true).each { ll << it }
 reasoner.getSuperClasses(nothing,true).each { ll << it }
-end = System.currentTimeMillis()
+stop = System.currentTimeMillis()
 elapsed = stop-start
 println "Query time: $elapsed ms"
