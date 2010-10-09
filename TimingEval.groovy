@@ -96,4 +96,5 @@ reasoner.getSubClasses(thing,true).each { ll << it }
 reasoner.getSuperClasses(nothing,true).each { ll << it }
 stop = System.currentTimeMillis()
 elapsed = stop-start
-println "Query time: $elapsed ms"
+def size = ll.size()
+println "Query time: $elapsed ms ($size)"
