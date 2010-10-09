@@ -61,7 +61,6 @@ if (opt.r == "0" || !opt.r) {
 }
 
 
-/* Use reasoner to add inferred axioms */
 ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor()
 OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor)
 OWLReasoner reasoner = null
@@ -77,3 +76,6 @@ now = Calendar.getInstance()
 def stop = now.getTimeInMillis()
 def elapsed = stop-start
 println "Elapsed time: "+elapsed+"ms"
+
+
+start = System.currentTimeMillis()
