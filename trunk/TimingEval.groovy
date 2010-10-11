@@ -84,17 +84,17 @@ if (! ((opt.r == "3") || (opt.r == "4"))) {
   reasoner = new CelReasoner(ont)
 }
 
+def thing = fac.getOWLThing()
+def nothing = fac.getOWLNothing()
+def ll = []
 Calendar now = Calendar.getInstance()
 def start = now.getTimeInMillis()
-println reasoner.getUnsatisfiableClasses()
+reasoner.getSubClasses(thing,true).each { ll << it }
 now = Calendar.getInstance()
 def stop = now.getTimeInMillis()
 def elapsed = stop-start
 println "Elapsed time: "+elapsed+"ms"
 
-def ll = []
-def thing = fac.getOWLThing()
-def nothing = fac.getOWLNothing()
 def query = null
 if (opt.x) {
   query = fac.getOWLObjectIntersectionOf(fac.getOWLClass(IRI.create(opt.x)),fac.getOWLClass(IRI.create(opt.y)))
