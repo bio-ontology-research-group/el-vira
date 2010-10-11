@@ -22,6 +22,7 @@ cli.with {
 usage: 'Self'
   h longOpt:'help', 'this information'
   i longOpt:'input', 'input file', args:1, required:true
+  q longOpt:'query', 'query term (IRI)', args:1
   r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, 3 for JCEL, 4 for CEL, Default: 0)',args:1
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
@@ -91,10 +92,17 @@ println "Elapsed time: "+elapsed+"ms"
 def ll = []
 def thing = fac.getOWLThing()
 def nothing = fac.getOWLNothing()
+def query = fac.getOWLClass(IRI.create(opt.q))
 start = System.currentTimeMillis()
-reasoner.getSubClasses(thing,true).each { ll << it }
-reasoner.getSuperClasses(nothing,true).each { ll << it }
+if (opt.q) {
+  reasoner.getSubClasses(query,true).each { ll << it }
+  reasoner.getSuperClasses(query,true).each { ll << it }
+} else {
+  reasoner.getSubClasses(thing,true).each { ll << it }
+  reasoner.getSuperClasses(nothing,true).each { ll << it }
+}
 stop = System.currentTimeMillis()
 elapsed = stop-start
 def size = ll.size()
 println "Query time: $elapsed ms ($size)"
+
