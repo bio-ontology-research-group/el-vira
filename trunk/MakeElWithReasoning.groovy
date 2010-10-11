@@ -120,6 +120,7 @@ gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
 InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
 if (opt.d) {
+  println "Adding Disjointness axioms"
   iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 }
 iog.fillOntology(manager, infOnt)
