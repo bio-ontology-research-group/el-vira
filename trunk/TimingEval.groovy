@@ -95,7 +95,10 @@ println "Elapsed time: "+elapsed+"ms"
 def ll = []
 def thing = fac.getOWLThing()
 def nothing = fac.getOWLNothing()
-def query = fac.getOWLObjectIntersectionOf(fac.getOWLClass(IRI.create(opt.x)),fac.getOWLClass(IRI.create(opt.y)))
+def query = null
+if (opt.x) {
+  query = fac.getOWLObjectIntersectionOf(fac.getOWLClass(IRI.create(opt.x)),fac.getOWLClass(IRI.create(opt.y)))
+}
 start = System.currentTimeMillis()
 if (opt.x) {
   reasoner.getSubClasses(query,true).each { ll << it }
