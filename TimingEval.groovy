@@ -16,6 +16,7 @@ import org.semanticweb.HermiT.Reasoner
 import uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory
 import de.tudresden.inf.lat.jcel.owlapi.main.*
 import de.tudresden.inf.lat.cel.owlapi.*
+import org.sti2.elly.owl.reasoner.ELReasonerFactory
 
 def cli = new CliBuilder()
 cli.with {
@@ -24,7 +25,7 @@ usage: 'Self'
   i longOpt:'input', 'input file', args:1, required:true
   x longOpt:'query-term-1', 'query term 1 (IRIs)', args:1
   y longOpt:'query-term-2', 'query term 2 (IRIs)', args:1
-  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, 3 for JCEL, 4 for CEL, Default: 0)',args:1
+  r longOpt:'reasoner', 'reasoner to use (0 for Pellet, 1 for Hermit, 2 for Fact++, 3 for JCEL, 4 for CEL, 5 for ELLY, Default: 0)',args:1
   v longOpt:'verbose', 'prints progress of OWL reasoning'
 }
 
@@ -64,6 +65,9 @@ if (opt.r == "0" || !opt.r) {
 } else if (opt.r == "2") {
   println "Using FaCT++ reasoner"
   reasonerFactory = new FaCTPlusPlusReasonerFactory()
+} else if (opt.r == "5") {
+  println "Using ELLY reasoner"
+  reasonerFactory = new ELReasonerFactory()
 }
 
 
