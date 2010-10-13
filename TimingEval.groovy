@@ -105,7 +105,6 @@ if (opt.x) {
 start = System.currentTimeMillis()
 if (opt.x) {
   reasoner.getSubClasses(query,true).each { ll << it }
-  reasoner.getSuperClasses(query,true).each { ll << it }
 } else {
   reasoner.getSubClasses(thing,true).each { ll << it }
   reasoner.getSuperClasses(nothing,true).each { ll << it }
