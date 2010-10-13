@@ -16,7 +16,6 @@ import org.semanticweb.HermiT.Reasoner
 import uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory
 import de.tudresden.inf.lat.jcel.owlapi.main.*
 import de.tudresden.inf.lat.cel.owlapi.*
-import org.sti2.elly.owl.reasoner.ELReasonerFactory
 
 def cli = new CliBuilder()
 cli.with {
@@ -65,9 +64,9 @@ if (opt.r == "0" || !opt.r) {
 } else if (opt.r == "2") {
   println "Using FaCT++ reasoner"
   reasonerFactory = new FaCTPlusPlusReasonerFactory()
-} else if (opt.r == "5") {
-  println "Using ELLY reasoner"
-  reasonerFactory = new ELReasonerFactory()
+// } else if (opt.r == "5") {
+//   println "Using ELLY reasoner"
+//   reasonerFactory = new ELReasonerFactory()
 }
 
 
