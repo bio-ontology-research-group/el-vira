@@ -25,6 +25,7 @@ usage: 'Self'
   v longOpt:'verbose', 'verbose output: prints progress of OWL reasoning'
   d longOpt:'disjoints', 'include inferred disjointness axioms (may take a long time)'
   a longOpt:'noanno', 'exclude annotation properties (sometimes required for Pellet compliance)'
+  s longOpt:'select-profile', '0 for EL (default), 1 for QL, 2 for RL',args:1
 }
 def opt = cli.parse(args)
 if( !opt ) {
@@ -37,12 +38,23 @@ if( opt.h ) {
 }
 
 def prof = null
-if (opt.p) {
-  println "Pellet-compatible conversion"
-  prof = new PelletOWL2ELProfile()
+if (!s || s == "0") {
+  if (opt.p) {
+    println "Conversion to OWL EL Profile (Pellet-compliant)"
+    prof = new PelletOWL2ELProfile()
+  } else {
+    println "Conversion to OWL EL Profile"
+    prof = new OWL2ELProfile()
+  }
+} else if (s == "1") {
+  println "Conversion to OWL QL Profile"
+  prof = new OWL2QLProfile()
+} else if (s == "2") {
+  println "Conversion to OWL RL Profile"
+  prof = new OWL2RLProfile()
 } else {
-  println "Standard conversion"
-  prof = new OWL2ELProfile()
+  println "Invalid parameter s: $s"
+  return
 }
 
 def diri = new File(opt.i) // infile
