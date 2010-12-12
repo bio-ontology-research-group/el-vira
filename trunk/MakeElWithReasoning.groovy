@@ -25,6 +25,7 @@ usage: 'Self'
   v longOpt:'verbose', 'verbose output: prints progress of OWL reasoning'
   d longOpt:'disjoints', 'include inferred disjointness axioms (may take a long time)'
   a longOpt:'noanno', 'exclude annotation properties (sometimes required for Pellet compliance)'
+  t longOpt:'transitivity', 'infer object property characteristics'
   s longOpt:'select-profile', '0 for EL (default), 1 for QL, 2 for RL',args:1
 }
 def opt = cli.parse(args)
@@ -126,15 +127,18 @@ gens.add(new InferredEquivalentClassAxiomGenerator())
 gens.add(new InferredEquivalentObjectPropertyAxiomGenerator())
 gens.add(new InferredClassAssertionAxiomGenerator())
 gens.add(new InferredInverseObjectPropertiesAxiomGenerator())
-gens.add(new InferredObjectPropertyCharacteristicAxiomGenerator())
 gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
-InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
+InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
 if (opt.d) {
   println "Adding Disjointness axioms"
   iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 }
+if (opt.t) {
+  iog.addGenerator(new InferredObjectPropertyCharacteristicAxiomGenerator())
+}
+
 iog.fillOntology(manager, infOnt)
 
 File tempFile = File.createTempFile("elvira",".owl")
