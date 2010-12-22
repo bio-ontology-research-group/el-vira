@@ -39,7 +39,7 @@ if( opt.h ) {
 }
 
 def prof = null
-if (!s || s == "0") {
+if (!opt.s || opt.s == "0") {
   if (opt.p) {
     println "Conversion to OWL EL Profile (Pellet-compliant)"
     prof = new PelletOWL2ELProfile()
@@ -47,14 +47,14 @@ if (!s || s == "0") {
     println "Conversion to OWL EL Profile"
     prof = new OWL2ELProfile()
   }
-} else if (s == "1") {
+} else if (opt.s == "1") {
   println "Conversion to OWL QL Profile"
   prof = new OWL2QLProfile()
-} else if (s == "2") {
+} else if (opt.s == "2") {
   println "Conversion to OWL RL Profile"
   prof = new OWL2RLProfile()
 } else {
-  println "Invalid parameter s: $s"
+  println "Invalid parameter s"
   return
 }
 
