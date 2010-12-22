@@ -130,13 +130,17 @@ gens.add(new InferredInverseObjectPropertiesAxiomGenerator())
 gens.add(new InferredPropertyAssertionGenerator())
 gens.add(new InferredSubObjectPropertyAxiomGenerator())
 
-InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens)
+InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner)
 if (opt.d) {
   println "Adding Disjointness axioms"
   iog.addGenerator(new InferredDisjointClassesAxiomGenerator())
 }
-if (opt.t) {
-  iog.addGenerator(new InferredObjectPropertyCharacteristicAxiomGenerator())
+if (!opt.t) {
+ iog.getAxiomGenerators().each {
+ if (it.getLabel() == "Object property characteristics") {
+ iog.removeGenerator(it)
+  }
+ }
 }
 
 iog.fillOntology(manager, infOnt)
