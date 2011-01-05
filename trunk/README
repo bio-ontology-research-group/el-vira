@@ -1,0 +1,58 @@
+EL Vira is a set of tools to process OWL ontologies.
+
+To run any of the scripts, you need Groovy
+(http://groovy.codehaus.org) installed and the OWL API
+(http://owlapi.sourceforge.net/), Pellet
+(http://clarkparsia.com/pellet/), HermiT (http://hermit-reasoner.com/)
+and FaCT++ (http://code.google.com/p/factplusplus/) JAR files in your
+Java classpath.
+
+
+MakeElWithReasoning.groovy
+--------------------------
+This script converts OWL ontologies into OWL EL, QL or RL. It performs
+a classification of the OWL ontologies to maintain infered subclass
+assertions and class restrictions.
+
+To run, type:
+groovy MakeElWithReasoning.groovy
+and follow the instructions.
+
+MakeEl.groovy
+-------------
+This script converts OWL ontologies into OWL EL. It performs no
+classification of the OWL ontologies, but rather converts them
+directly based on the asserted axioms.
+
+To run, type:
+groovy MakeEl.groovy
+and follow the instructions.
+
+isEl.groovy
+-----------
+This script can be used to detect if an ontology is represented in the
+OWL EL subset of OWL. It uses both the OWLAPI and the Pellet reasoner
+in order to identify whether an OWL ontologies complies with the
+official specification of OWL EL and whether it would be recognized by
+Pellet as an OWL EL ontology.
+
+To run, type:
+groovy isEl.groovy
+and follow the instructions.
+
+GenerateInferredOntology.groovy
+--------------------------------
+This script generates an inferred view of an ontology.
+
+To run, type:
+groovy GenerateInferredOntology.groovy
+and follow the instructions.
+
+TimingEval.groovy
+-----------------
+This script performs an evaluation of the performance of a reasoner
+for classification and querying.
+
+To run, type:
+groovy TimingEval.groovy
+and follow the instructions.
