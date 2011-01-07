@@ -74,7 +74,7 @@ OWLDataFactory fac = manager.getOWLDataFactory()
 
 OWLReasonerFactory reasonerFactory = null
 
-OWLOntology infOnt = manager.createOntology()
+OWLOntology infOnt = manager.createOntology(ontologyID)
 
 if (opt.r == "0" || !opt.r) {
   println "Using Pellet reasoner"
