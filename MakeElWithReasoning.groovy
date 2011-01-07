@@ -13,6 +13,7 @@ import org.mindswap.pellet.expressivity.*
 import org.mindswap.pellet.*
 import org.semanticweb.HermiT.Reasoner
 import uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory
+import org.semanticweb.owlapi.io.*
 
 def cli = new CliBuilder()
 cli.with {
