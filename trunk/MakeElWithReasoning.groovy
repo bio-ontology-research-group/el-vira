@@ -70,7 +70,7 @@ manager.setSilentMissingImportsHandling(true)
 OWLOntology ont = manager.loadOntologyFromOntologyDocument(diri)
 
 OWLOntologyID oldOntologyID = ont.getOntologyID()
-OWLOntologyID newOntologyID = new OWLOntologyID(ont.getOntologyID(),IRI.create("http://el-vira.googlecode.com"))
+OWLOntologyID newOntologyID = new OWLOntologyID(oldOntologyID.getOntologyIRI(),IRI.create("http://el-vira.googlecode.com"))
 
 OWLDataFactory fac = manager.getOWLDataFactory()
 
