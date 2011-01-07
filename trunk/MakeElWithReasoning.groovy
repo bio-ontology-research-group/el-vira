@@ -68,6 +68,7 @@ manager.setSilentMissingImportsHandling(true)
 
 OWLOntology ont = manager.loadOntologyFromOntologyDocument(diri)
 
+OWLOntologyID ontologyID = ont.getOntologyID()
 
 OWLDataFactory fac = manager.getOWLDataFactory()
 
@@ -188,6 +189,7 @@ println "Output ontology is in EL: "+report.isInProfile()
 // }
 
 
+manager.setOntologyDocumentIRI(ont2,ontologyID.getOntologyIRI())
 
 manager.saveOntology(ont2, IRI.create(outfile.toURI()))
 
