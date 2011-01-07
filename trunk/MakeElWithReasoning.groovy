@@ -76,7 +76,7 @@ OWLDataFactory fac = manager.getOWLDataFactory()
 
 OWLReasonerFactory reasonerFactory = null
 
-OWLOntology infOnt = manager.createOntology(newOntologyID)
+OWLOntology infOnt = manager.createOntology()
 
 if (opt.r == "0" || !opt.r) {
   println "Using Pellet reasoner"
@@ -164,7 +164,7 @@ viol.each {
 }
 
 
-OWLOntology ont2 = manager.createOntology()
+OWLOntology ont2 = manager.createOntology(newOntologyID)
 
 s = infOnt.getAxioms()
 // copy axiom, provided that it does not have to be ignored and if pellet-compliance is on, then it must not be a datapropertyassertion
@@ -194,7 +194,7 @@ println "Output ontology is in EL: "+report.isInProfile()
 
 
 //manager.setOntologyDocumentIRI(ont2,newOntologyID.getOntologyIRI())
-println ont2.getOntologyID()
+//println ont2.getOntologyID()
 manager.saveOntology(ont2, IRI.create(outfile.toURI()))
 
 
