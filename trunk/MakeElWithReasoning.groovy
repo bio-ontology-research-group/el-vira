@@ -69,13 +69,14 @@ manager.setSilentMissingImportsHandling(true)
 
 OWLOntology ont = manager.loadOntologyFromOntologyDocument(diri)
 
-OWLOntologyID ontologyID = ont.getOntologyID()
+OWLOntologyID oldOntologyID = ont.getOntologyID()
+OWLOntologyID newOntologyID = new OWLOntologyID(ont.getOntologyID(),IRI.create("http://el-vira.googlecode.com"))
 
 OWLDataFactory fac = manager.getOWLDataFactory()
 
 OWLReasonerFactory reasonerFactory = null
 
-OWLOntology infOnt = manager.createOntology(ontologyID.getOntologyIRI())
+OWLOntology infOnt = manager.createOntology(newOntologyID)
 
 if (opt.r == "0" || !opt.r) {
   println "Using Pellet reasoner"
