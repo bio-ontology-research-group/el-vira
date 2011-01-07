@@ -151,6 +151,8 @@ iog.fillOntology(manager, infOnt)
 File tempFile = File.createTempFile("elvira",".owl")
 
 manager.saveOntology(infOnt, IRI.create(tempFile))
+manager.removeOntology(ont)
+manager.removeOntology(infOnt)
 
 infOnt = manager.loadOntologyFromOntologyDocument(IRI.create(tempFile))
 
