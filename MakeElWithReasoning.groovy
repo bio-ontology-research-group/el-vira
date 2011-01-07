@@ -193,8 +193,8 @@ println "Output ontology is in EL: "+report.isInProfile()
 // }
 
 
-//manager.setOntologyDocumentIRI(ont2,ontologyID.getOntologyIRI())
+//manager.setOntologyDocumentIRI(ont2,newOntologyID.getOntologyIRI())
 
-manager.saveOntology(ont2, new OWLXMLOntologyFormat(), IRI.create(outfile.toURI()))
+manager.saveOntology(ont2, IRI.create(outfile.toURI()))
 
 
