@@ -74,7 +74,7 @@ OWLDataFactory fac = manager.getOWLDataFactory()
 
 OWLReasonerFactory reasonerFactory = null
 
-OWLOntology infOnt = manager.createOntology(ontologyID)
+OWLOntology infOnt = manager.createOntology()
 
 if (opt.r == "0" || !opt.r) {
   println "Using Pellet reasoner"
@@ -190,6 +190,7 @@ println "Output ontology is in EL: "+report.isInProfile()
 
 
 manager.setOntologyDocumentIRI(ont2,ontologyID.getOntologyIRI())
+println ontologyID.getOntologyIRI()
 
 manager.saveOntology(ont2, IRI.create(outfile.toURI()))
 
