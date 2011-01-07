@@ -182,6 +182,7 @@ s.each {
 File tempFile2 = File.createTempFile("elvira-stage2",".owl")
 
 manager.saveOntology(ont2, IRI.create(tempFile2))
+manager.removeOntology(ont2)
 
 ont2 = manager.loadOntologyFromOntologyDocument(IRI.create(tempFile2))
 
